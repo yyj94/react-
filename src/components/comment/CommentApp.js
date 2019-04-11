@@ -2,17 +2,18 @@
  * @Author: Jarvis Ye 
  * @Date: 2019-03-20 22:44:51 
  * @Last Modified by: Jarvis Ye
- * @Last Modified time: 2019-03-20 23:27:20
+ * @Last Modified time: 2019-04-11 22:20:27
  */
 import React, { Component } from 'react';
 import CommentInput from './CommentInput'
 import CommentList from './CommentList'
+import wrapWithLoadData from './wrapWithLoadData'
 
 class CommentApp extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      comments: JSON.parse(localStorage.getItem('comments')) || []
+      comments: props.data
     }
   }
 
@@ -20,11 +21,11 @@ class CommentApp extends Component {
     if (!comment) return
     if (!comment.username) return alert('请输入用户名')
     if (!comment.content) return alert('请输入评论内容')
-    this.state.comments.push(comment)
-    console.log(this.state.comments)
-    localStorage.setItem('comments', JSON.stringify(this.state.comments))
+    const comments = this.state.comments
+    comments.push(comment)
+    this.props.saveData(comments)
     this.setState({
-      comments: this.state.comments
+      comments
     });
   }
 
@@ -33,9 +34,9 @@ class CommentApp extends Component {
     let comments = this.state.comments
     comments.splice(index, 1)
     this.setState({
-      comments: comments
+      comments
     });
-    localStorage.setItem('comments', JSON.stringify(comments))
+    this.props.saveData(comments)
   }
 
   render() {
@@ -48,4 +49,5 @@ class CommentApp extends Component {
   }
 }
 
+CommentApp = wrapWithLoadData(CommentApp, 'comments')
 export default CommentApp;

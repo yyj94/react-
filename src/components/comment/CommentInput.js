@@ -2,20 +2,21 @@
  * @Author: Jarvis Ye
  * @Date: 2019-03-20 22:47:46
  * @Last Modified by: Jarvis Ye
- * @Last Modified time: 2019-03-20 23:21:29
+ * @Last Modified time: 2019-04-11 22:22:50
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import wrapWithLoadData from './wrapWithLoadData'
 
 class CommentInput extends Component {
   static propTypes = {
     onSubmit: PropTypes.func
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      username: localStorage.getItem('username') || '',
+      username: props.data,
       content: ''
     }
   }
@@ -37,7 +38,7 @@ class CommentInput extends Component {
       const { username, content } = this.state
       this.props.onSubmit({ username, content, createdTime: +new Date() })
       this.setState({ content: '' });
-      localStorage.setItem('username', username)
+      this.props.saveData(username)
     }
   }
   componentDidMount() {
@@ -66,7 +67,9 @@ class CommentInput extends Component {
       </div>
     )
   }
-  
+
 }
 
+
+CommentInput = wrapWithLoadData(CommentInput, 'username')
 export default CommentInput;

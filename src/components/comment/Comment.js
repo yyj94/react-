@@ -2,7 +2,7 @@
  * @Author: Jarvis Ye
  * @Date: 2019-03-20 22:47:39
  * @Last Modified by: Jarvis Ye
- * @Last Modified time: 2019-03-20 23:18:25
+ * @Last Modified time: 2019-04-11 21:26:48
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -37,8 +37,8 @@ class Comment extends Component {
     const duration = (+new Date() - createdTime) / 1000
     console.log(duration)
     this.setState({
-      timeString: duration > 60 
-        ? duration > 60 * 60 
+      timeString: duration > 60
+        ? duration > 60 * 60
           ? duration > 60 * 60 * 24
             ? duration > 60 * 60 * 24 * 7
               ? duration > 60 * 60 * 24 * 31
@@ -48,9 +48,19 @@ class Comment extends Component {
                 : `${Math.round(Math.max(duration / 60 * 60 * 24 * 7, 1))} 周前`
               : `${Math.round(Math.max(duration / 60 * 60 * 24, 1))} 天前`
             : `${Math.round(Math.max(duration / 60 * 60, 1))} 小时前`
-          : `${Math.round(Math.max(duration / 60, 1))} 分钟前` 
+          : `${Math.round(Math.max(duration / 60, 1))} 分钟前`
         : `${Math.round(Math.max(duration, 1))} 秒前`
     })
+  }
+
+  _getProcessedContent(content) {
+    return content
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;")
+      .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
   }
 
   handleDeleteComment() {
@@ -66,7 +76,7 @@ class Comment extends Component {
         <div className='comment-user'>
           <span>{comment.username} </span>：
         </div>
-        <p>{comment.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: this._getProcessedContent(comment.content) }}></p>
         <span className='comment-createdtime'>
           {this.state.timeString}
         </span>
