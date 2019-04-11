@@ -2,7 +2,7 @@
  * @Author: Jarvis Ye
  * @Date: 2019-03-20 22:47:46
  * @Last Modified by: Jarvis Ye
- * @Last Modified time: 2019-04-11 22:22:50
+ * @Last Modified time: 2019-04-11 23:46:55
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -16,7 +16,7 @@ class CommentInput extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: props.data,
+      username: props.data || '',
       content: ''
     }
   }

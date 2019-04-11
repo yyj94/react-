@@ -2,7 +2,7 @@
  * @Author: Jarvis Ye 
  * @Date: 2019-03-20 22:44:51 
  * @Last Modified by: Jarvis Ye
- * @Last Modified time: 2019-04-11 22:20:27
+ * @Last Modified time: 2019-04-11 23:50:44
  */
 import React, { Component } from 'react';
 import CommentInput from './CommentInput'
@@ -13,8 +13,12 @@ class CommentApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: props.data
+      comments: props.data || []
     }
+  }
+
+  componentWillMount() {
+    console.log(this.state.comments, 'data is')
   }
 
   handleSubmitComment(comment) {
