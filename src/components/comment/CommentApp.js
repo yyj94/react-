@@ -12,7 +12,7 @@ class CommentApp extends Component {
   constructor() {
     super();
     this.state = {
-      comments: []
+      comments: JSON.parse(localStorage.getItem('comments')) || []
     }
   }
 
@@ -21,15 +21,28 @@ class CommentApp extends Component {
     if (!comment.username) return alert('请输入用户名')
     if (!comment.content) return alert('请输入评论内容')
     this.state.comments.push(comment)
+    console.log(this.state.comments)
+    localStorage.setItem('comments', JSON.stringify(this.state.comments))
     this.setState({
       comments: this.state.comments
     });
   }
+
+  // 删除评论
+  handleDeleteComment(index) {
+    let comments = this.state.comments
+    comments.splice(index, 1)
+    this.setState({
+      comments: comments
+    });
+    localStorage.setItem('comments', JSON.stringify(comments))
+  }
+
   render() {
     return (
       <div className='wrapper'>
         <CommentInput onSubmit={this.handleSubmitComment.bind(this)} />
-        <CommentList comments={this.state.comments} />
+        <CommentList comments={this.state.comments} onDeleteComment={this.handleDeleteComment.bind(this)} />
       </div>
     )
   }
