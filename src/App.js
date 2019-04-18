@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CommentApp from './components/comment/CommentApp'
+import CommentApp from './containers/CommentApp'
 
 class App extends Component {
 

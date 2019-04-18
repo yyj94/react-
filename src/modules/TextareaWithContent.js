@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import wrapWithLoadData from './wrapWithLoadData'
+import wrapWithLoadData from '../components/wrapWithLoadData'
 
 class TextareaWithContent extends Component {
   render() {

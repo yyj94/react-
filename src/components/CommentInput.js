@@ -6,18 +6,33 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import wrapWithLoadData from './wrapWithLoadData'
+// import wrapWithLoadData from './wrapWithLoadData'
 
 class CommentInput extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func
+    username: PropTypes.any,
+    onSubmit: PropTypes.func,
+    onUserNameInputBlur: PropTypes.func
+  }
+
+  static defaultProps = {
+    username: ''
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      username: props.data || '',
+      username: props.username,
       content: ''
+    }
+  }
+  componentDidMount() {
+    this.commentInput.focus()
+  }
+  // 派发事件
+  handleUsernameBlur(event) {
+    if (this.props.onUserNameInputBlur) {
+      this.props.onUserNameInputBlur(event.target.value)
     }
   }
   // 处理姓名表单事件
@@ -37,20 +52,17 @@ class CommentInput extends Component {
     if (this.props.onSubmit) {
       const { username, content } = this.state
       this.props.onSubmit({ username, content, createdTime: +new Date() })
-      this.setState({ content: '' });
-      this.props.saveData(username)
     }
+    this.setState({ content: '' });
   }
-  componentDidMount() {
-    this.commentInput.focus()
-  }
+  
   render() {
     return (
       <div className='comment-input'>
         <div className='comment-field'>
           <span className='comment-field-name'>用户名：</span>
           <div className='comment-field-input'>
-            <input value={this.state.username} onChange={this.handleUsernameChange.bind(this)} />
+            <input value={this.state.username} onChange={this.handleUsernameChange.bind(this)} onBlur={this.handleUsernameBlur.bind(this)} />
           </div>
         </div>
         <div className='comment-field'>
@@ -71,5 +83,5 @@ class CommentInput extends Component {
 }
 
 
-CommentInput = wrapWithLoadData(CommentInput, 'username')
+// CommentInput = wrapWithLoadData(CommentInput, 'username')
 export default CommentInput;

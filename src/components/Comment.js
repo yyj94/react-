@@ -43,12 +43,12 @@ class Comment extends Component {
             ? duration > 60 * 60 * 24 * 7
               ? duration > 60 * 60 * 24 * 31
                 ? duration > 60 * 60 * 24 * 365
-                  ? `${Math.round(Math.max(duration / 60 * 60 * 24 * 365, 1))} 年前`
-                  : `${Math.round(Math.max(duration / 60 * 60 * 24 * 31, 1))} 月前`
-                : `${Math.round(Math.max(duration / 60 * 60 * 24 * 7, 1))} 周前`
-              : `${Math.round(Math.max(duration / 60 * 60 * 24, 1))} 天前`
-            : `${Math.round(Math.max(duration / 60 * 60, 1))} 小时前`
-          : `${Math.round(Math.max(duration / 60, 1))} 分钟前`
+                  ? `${Math.round(Math.max(duration* 10000 / (60 * 60 * 24 * 365 * 10000), 1))} 年前`
+                  : `${Math.round(Math.max(duration* 10000 / (60 * 60 * 24 * 31* 10000), 1))} 月前`
+                : `${Math.round(Math.max(duration* 10000 / (60 * 60 * 24 * 7* 10000), 1))} 周前`
+              : `${Math.round(Math.max(duration* 10000 / (60 * 60 * 24* 10000), 1))} 天前`
+            : `${Math.round(Math.max(duration* 10000 / (60 * 60* 10000), 1))} 小时前`
+          : `${Math.round(Math.max(duration* 10000 / (60* 10000), 1))} 分钟前`
         : `${Math.round(Math.max(duration, 1))} 秒前`
     })
   }

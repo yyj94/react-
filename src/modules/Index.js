@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import InputWithUserName from './InputWithUserName'
-import TextareaWithContent from './TextareaWithContent'
+import TextareaWithContent from '../components/TextareaWithContent'
 
 class Index extends Component {
   render() {
