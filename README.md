@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[https://www.yeyanjie.com/react-recommend-app/](预览地址)
+[预览地址](https://www.yeyanjie.com/react-recommend-app/)
 
 ## Available Scripts
 
